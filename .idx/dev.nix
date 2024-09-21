@@ -23,6 +23,16 @@
       };
       # To run something each time the workspace is (re)started, use the `onStart` hook
     };
+
+     previews = {
+      enable = true;
+      
+      previews = {
+        web = {
+          manager = "web";
+        };
+      };
+    };
     
   };
 }
