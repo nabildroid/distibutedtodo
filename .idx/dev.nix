@@ -7,7 +7,16 @@
   packages = [
     pkgs.nodejs_20
     pkgs.bun
+    pkgs.docker
+    pkgs.multipass
+    pkgs.openssh
+    pkgs.busybox
+    pkgs.iptables
+    pkgs.sudo
+    
   ];
+
+  services.docker.enable = true;
   # Sets environment variables in the workspace
   env = {};
   idx = {
@@ -18,6 +27,7 @@
     workspace = {
       # Runs when a workspace is first created with this `dev.nix` file
       onCreate = {
+        start-ubuntu ="docker rm $(docker ps -a -q) && docker run -d -v $(pwd):/home/ubuntu/dev --name ubuntu_container my_ubuntu_image";
         npm-fontend-install = "cd frontend && npm ci --no-audit --prefer-offline --no-progress --timing";
         npm-backend-install = "cd backend && npm ci --no-audit --prefer-offline --no-progress --timing";
       };
